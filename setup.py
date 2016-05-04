@@ -1,13 +1,17 @@
-from distutils.core import setup
-import pkg_resources
+# -*- coding: utf-8 -*-
 
+import re
 import sys
+
+from distutils.core import setup
 
 requires = ['six']
 if sys.version_info < (2, 7):
     requires.append('argparse')
 
-version = pkg_resources.require("fitparse")[0].version
+with open('fitparse/__init__.py', 'r') as fd:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+                        fd.read(), re.MULTILINE).group(1)
 
 setup(
     name='fitparse',
